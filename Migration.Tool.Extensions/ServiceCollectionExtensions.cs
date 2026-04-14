@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Migration.Tool.Extensions.CommunityMigrations;
 using Migration.Tool.Extensions.DefaultMigrations;
 using Migration.Tool.KXP.Api.Services.CmsClass;
+using Migration.Tool.Source.Mappers.ContentItemMapperDirectives;
 
 namespace Migration.Tool.Extensions;
 
@@ -16,6 +17,8 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IWidgetPropertyMigration, WidgetPathSelectorMigration>();
         services.AddTransient<IWidgetPropertyMigration, WidgetPageSelectorMigration>();
 
+        // NACS: Only migrate content items of the 9 target types created on or after 2025-07-22
+        services.AddTransient<ContentItemDirectorBase, DateCutoffDirector>();
 
         // services.AddClassMergeExample();
         // services.AddClassMergeExampleAsReusable();
