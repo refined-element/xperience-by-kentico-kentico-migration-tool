@@ -79,7 +79,10 @@ public class CommandParser : ICommandParser
             if (arg == $"--{MigratePagesCommand.Moniker}")
             {
                 subcommands.Add(new MigratePagesCommand());
-                subcommands.Add(new MigrateAttachmentsCommand());
+                // NACS: Removed auto-add of MigrateAttachmentsCommand.
+                // It migrates ALL unsorted attachments unfiltered, bypassing the DateCutoffDirector.
+                // Page-linked attachments are still migrated inline during page field processing.
+                // If standalone attachment migration is needed, run --attachments explicitly.
                 continue;
             }
 
