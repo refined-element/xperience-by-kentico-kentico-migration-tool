@@ -29,8 +29,10 @@ public class DateCutoffDirector(ModelFacade modelFacade) : ContentItemDirectorBa
 
     public override void Direct(ContentItemSource source, IContentItemActionProvider options)
     {
+        // Drop all content types not in scope
         if (!TargetClassNames.Contains(source.SourceClassName))
         {
+            options.Drop();
             return;
         }
 
