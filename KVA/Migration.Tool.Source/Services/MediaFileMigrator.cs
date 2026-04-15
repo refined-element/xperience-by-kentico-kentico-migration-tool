@@ -125,11 +125,11 @@ public class MediaFileMigrator(
             return new LoadMediaFileResult(false, null, "<missing library path>");
         }
 
-        string filePath = Path.Combine(sourceMediaLibraryPath, relativeFilePath);
+        string filePath = CMS.IO.Path.Combine(sourceMediaLibraryPath, relativeFilePath);
         if (File.Exists(filePath))
         {
             byte[] data = File.ReadAllBytes(filePath);
-            var dummyFile = DummyUploadedFile.FromByteArray(data, contentType, data.LongLength, Path.GetFileName(filePath));
+            var dummyFile = DummyUploadedFile.FromByteArray(data, contentType, data.LongLength, CMS.IO.Path.GetFileName(filePath));
             return new LoadMediaFileResult(true, dummyFile, filePath);
         }
 
@@ -162,7 +162,7 @@ public class MediaFileMigrator(
                     }
                 }
 
-                string? librarySubfolder = Path.GetDirectoryName(ksMediaFile.FilePath);
+                string? librarySubfolder = CMS.IO.Path.GetDirectoryName(ksMediaFile.FilePath);
 
                 (bool isFixed, var safeMediaFileGuid) = entityIdentityFacade.Translate(ksMediaFile);
                 if (isFixed)

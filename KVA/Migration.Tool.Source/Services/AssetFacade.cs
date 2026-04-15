@@ -111,7 +111,7 @@ public class AssetFacade(
                     $"Invalid media file path generated for {mediaFile} and {mediaLibrary} on {site}");
             }
 
-            mediaFilePath = Path.Combine(mediaLibraryAbsolutePath, mediaFile.FilePath);
+            mediaFilePath = CMS.IO.Path.Combine(mediaLibraryAbsolutePath, mediaFile.FilePath);
         }
 
         int? createdByUserId = AdminUserHelper.MapTargetAdminUser(
@@ -141,7 +141,7 @@ public class AssetFacade(
                     ContentItemGuid = translatedMediaGuid,
                     Identifier = GuidHelper.CreateAssetGuid(translatedMediaGuid, contentLanguageName),
                     Name =
-                        Path.GetFileNameWithoutExtension(mediaFile.FileName) + mediaFile.FileExtension,
+                        CMS.IO.Path.GetFileNameWithoutExtension(mediaFile.FileName) + mediaFile.FileExtension,
                     Extension = mediaFile.FileExtension,
                     Size = null,
                     LastModified = null,
@@ -159,7 +159,7 @@ public class AssetFacade(
             };
         }));
 
-        string mediaFolder = Path.Combine(mediaLibrary.LibraryFolder, Path.GetDirectoryName(mediaFile.FilePath)!);
+        string mediaFolder = CMS.IO.Path.Combine(mediaLibrary.LibraryFolder, CMS.IO.Path.GetDirectoryName(mediaFile.FilePath)!);
 
         var folderGuid = contentFolderOptions is not null ? contentFolderService.EnsureFolder(contentFolderOptions, true, workspaceGuid) : await EnsureMediaFolder(mediaFolder, site, workspaceGuid);
 
@@ -192,7 +192,7 @@ public class AssetFacade(
         List<ContentItemLanguageData> languageData = [];
         foreach (string contentLanguageName in contentLanguageNames)
         {
-            string assetFileName = $"{Path.GetFileNameWithoutExtension(attachment.AttachmentName)}{attachment.AttachmentExtension}";
+            string assetFileName = $"{CMS.IO.Path.GetFileNameWithoutExtension(attachment.AttachmentName)}{attachment.AttachmentExtension}";
             var contentLanguageData = new ContentItemLanguageData
             {
                 LanguageName = contentLanguageName,
@@ -245,7 +245,7 @@ public class AssetFacade(
     private async Task<Guid?> EnsureMediaFolder(string sourceFolderFilesystemPath, ICmsSite site, Guid? workspaceGuid = null)
     {
         workspaceGuid ??= workspaceService.FallbackWorkspace.Value.WorkspaceGUID;
-        string folderSubPath = sourceFolderFilesystemPath.Replace(Path.DirectorySeparatorChar, '/');
+        string folderSubPath = sourceFolderFilesystemPath.Replace(CMS.IO.Path.DirectorySeparatorChar, '/');
 
         var pathTemplate = new List<(Guid Guid, string Name, string DisplayName, string PathSegmentName)>();
 
@@ -479,7 +479,7 @@ public class AssetFacade(
             var pathParts = new List<string>();
             if (cmsMediaLibrariesFolder != null)
             {
-                if (Path.IsPathRooted(cmsMediaLibrariesFolder))
+                if (CMS.IO.Path.IsPathRooted(cmsMediaLibrariesFolder))
                 {
                     pathParts.Add(cmsMediaLibrariesFolder);
                     if (cmsUseMediaLibrariesSiteFolder)
@@ -524,7 +524,7 @@ public class AssetFacade(
                 pathParts.Add(ksMediaLibrary.LibraryFolder);
             }
 
-            sourceMediaLibraryPath = Path.Combine(pathParts.ToArray());
+            sourceMediaLibraryPath = CMS.IO.Path.Combine(pathParts.ToArray());
         }
 
         return sourceMediaLibraryPath;

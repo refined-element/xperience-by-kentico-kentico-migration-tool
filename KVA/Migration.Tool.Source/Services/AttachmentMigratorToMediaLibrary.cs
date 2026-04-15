@@ -175,7 +175,7 @@ public class AttachmentMigratorToMediaLibrary(
 
         if (!string.IsNullOrWhiteSpace(additionalMediaPath) && (ksAttachment.AttachmentIsUnsorted != true || ksAttachment.AttachmentGroupGUID != null))
         {
-            librarySubFolder = Path.Combine(librarySubFolder, additionalMediaPath);
+            librarySubFolder = CMS.IO.Path.Combine(librarySubFolder, additionalMediaPath);
         }
 
         var mapped = attachmentMapper.Map(new CmsAttachmentMapperSource(ksAttachment, newAttachmentGuid, targetMediaLibraryId, uploadedFile, librarySubFolder, ksNode), mediaFile);

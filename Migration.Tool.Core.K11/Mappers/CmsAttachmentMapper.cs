@@ -37,7 +37,7 @@ public class CmsAttachmentMapper(ILogger<CmsAttachmentMapper> logger, PrimaryKey
     {
         (var cmsAttachment, int targetLibraryId, _, _, var attachmentDocument) = args;
 
-        target.FileName = Path.GetFileNameWithoutExtension(cmsAttachment.AttachmentName);
+        target.FileName = CMS.IO.Path.GetFileNameWithoutExtension(cmsAttachment.AttachmentName);
         target.FileTitle = cmsAttachment.AttachmentTitle ?? cmsAttachment.AttachmentName;
         target.FileDescription = cmsAttachment.AttachmentDescription ?? string.Empty;
         target.FileExtension = cmsAttachment.AttachmentExtension;

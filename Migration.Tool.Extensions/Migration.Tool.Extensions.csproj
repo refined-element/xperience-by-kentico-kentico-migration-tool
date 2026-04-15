@@ -7,6 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Kentico.Xperience.Admin" Version="31.3.0" />
+      <PackageReference Include="Kentico.Xperience.Core" Version="31.3.0" />
+      <PackageReference Include="Kentico.Xperience.WebApp" Version="31.3.0" />
+    </ItemGroup>
+
+    <ItemGroup>
       <ProjectReference Include="..\KVA\Migration.Tool.Source\Migration.Tool.Source.csproj" />
       <ProjectReference Include="..\Migration.Tool.KXP.Api\Migration.Tool.KXP.Api.csproj" />
     </ItemGroup>
