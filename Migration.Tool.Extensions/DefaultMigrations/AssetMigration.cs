@@ -389,7 +389,7 @@ public class AssetMigration(
         else
         {
             logger.LogWarning("Unable to map value based on selected migration, value: '{Value}'", sourceValue);
-            return new FieldMigrationResult(false, null);
+            return new FieldMigrationResult(true, null);
         }
 
         if (hasMigratedAsset && mfis is { Count: > 0 })
@@ -402,8 +402,8 @@ public class AssetMigration(
         }
         else
         {
-            logger.LogTrace("No assets migrated for '{FieldName}', value: '{Value}'", fieldName, sourceValue);
-            return new FieldMigrationResult(false, null);
+            logger.LogWarning("No assets migrated for '{FieldName}', value: '{Value}'. Field will be empty - populate via SQL post-migration.", fieldName, sourceValue);
+            return new FieldMigrationResult(true, null);
         }
     }
 
