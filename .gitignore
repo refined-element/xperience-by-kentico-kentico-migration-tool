@@ -14,3 +14,4 @@ Migration.Tool.CLI/appsettings.local.json_
 mcp.json
 claude_desktop_config.json
 mcp_config.json
+Migration.Tool.CLI/appsettings.json
